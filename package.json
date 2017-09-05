@@ -1,12 +1,13 @@
 {
   "name": "sandserver",
   "version": "1.0.0",
-  "description": "build with node and express service",
+  "description": "boilerplate for mobile",
   "scripts": {
-    "prebuild": "webpack --config ./webpack/webpack.config.js",
-    "build": "node ./nodeExpress/nodeExpress.js",
-    "webpack": "webpack --config ./webpack/webpack.config.js",
-    "service": "node ./nodeExpress/nodeExpress.js"
+    "prebuild": "cross-env NODE_ENV=production webpack --config ./webpack/webpack.config.js",
+    "build": "cross-env NODE_ENV=production node ./nodeExpress/nodeExpress.js",
+    "expressdev": "node ./nodeExpress/nodeExpress.js",
+    "dev": "node --harmony webpack/webpack.devserver.js --inline --hot",
+    "mock": "node --harmony webpack/webpack.mockserver.js --inline --hot"
   },
   "repository": {
     "type": "git",
@@ -28,11 +29,23 @@
     "babel-preset-env": "^1.6.0",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
+    "clean-webpack-plugin": "^0.1.16",
     "cross-env": "^5.0.5",
+    "css-hot-loader": "^1.3.0",
     "css-loader": "^0.28.5",
     "eslint": "^4.5.0",
     "express": "^4.15.4",
+    "extract-text-webpack-plugin": "^3.0.0",
+    "file-loader": "^0.11.2",
+    "html-webpack-plugin": "^2.30.1",
+    "less": "^2.7.2",
+    "less-loader": "^4.0.5",
+    "open-browser-webpack-plugin": "0.0.5",
+    "postcss-loader": "^2.0.6",
+    "react-hot-loader": "^3.0.0-beta.7",
     "style-loader": "^0.18.2",
+    "svg-sprite-loader": "^3.2.4",
+    "url-loader": "^0.5.9",
     "webpack": "^3.5.5",
     "webpack-dev-middleware": "^1.12.0",
     "webpack-dev-server": "^2.7.1",
@@ -41,9 +54,13 @@
   },
   "dependencies": {
     "antd": "^2.12.7",
+    "antd-mobile": "^1.6.3",
+    "axios": "^0.16.2",
     "connect-history-api-fallback": "^1.3.0",
+    "jquery": "^3.2.1",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
-    "react-router-dom": "^4.1.2"
+    "react-router-dom": "^4.1.2",
+    "store": "^2.0.12"
   }
 }

@@ -1,85 +1,40 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+// 适用 react hot loader 让热更新后保留React的组件状态
 import {
-  BrowserRouter as Router,
-  Route,
-  Link
-} from 'react-router-dom';
+  AppContainer
+} from 'react-hot-loader';
+import {
+  BasicExample
+} from './components';
+import $ from 'jquery';  
 
-const BasicExample = () => (
-  <Router>
-    <div>
-      <ul>
-        <li><Link to="/">Home</Link></li>
-        <li><Link to="/about">About</Link></li>
-        <li><Link to="/topics">Topics</Link></li>
-      </ul>
+const appElement = document.getElementById('app');
 
-      <hr />
-
-      <Route exact path="/" component={Home} />
-      <Route path="/about" component={About} />
-      <Route path="/topics" component={Topics} />
-    </div>
-  </Router>
-)
-
-const Home = () => (
-  <div>
-    <h2>Home</h2>
-  </div>
-)
-
-const About = () => (
-  <div>
-    <h2>About</h2>
-  </div>
-)
-
-const Topics = ({ match }) => (
-  <div>
-    <h2>Topics</h2>
-    <ul>
-      <li>
-        <Link to={`${match.url}/rendering`}>
-          Rendering with React
-        </Link>
-      </li>
-      <li>
-        <Link to={`${match.url}/components`}>
-          Components
-        </Link>
-      </li>
-      <li>
-        <Link to={`${match.url}/props-v-state`}>
-          Props v. State
-        </Link>
-      </li>
-    </ul>
-
-    <Route path={`${match.url}/:topicId`} component={Topic} />
-    <Route exact path={match.url} render={() => (
-      <h3>Please select a topic.</h3>
-    )} />
-  </div>
-)
-
-const Topic = ({ match }) => (
-  <div>
-    <h3>{match.params.topicId}</h3>
-  </div>
-)
-
-ReactDOM.render(<BasicExample/>, document.getElementById('app'));
+ReactDOM.render(  
+  <AppContainer>
+    <BasicExample/>
+  </AppContainer>,
+  appElement,
+);
 
 // if (module.hot) {
 //   module.hot.accept('./routes', () => {
-//     ReactDOM.unmountComponentAtNode(rootElement);
+//     ReactDOM.unmountComponentAtNode(appElement);
 //     render();
 //   });
 // }
 
 // 前端脚本中配置热更新处理逻辑
-if (module.hot) {  
-  module.hot.accept();
+// if (module.hot) {  
+//   module.hot.accept();
+// }
+
+// 前端脚本中配置热更新处理逻辑
+if(module.hot) {
+  module.hot.accept(function(err) {
+      if(err) {
+          console.error("Cannot apply hot update", err);
+      }
+  });
 }

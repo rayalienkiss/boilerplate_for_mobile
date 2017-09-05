@@ -9,7 +9,7 @@ app.use('/', express.static('dist'));
 const constants = require('../webpack/constants');
 
 // 根据 process.env.NODE_ENV 判断是否是生产环境构建代码，否则需要运行时打包及热更新
-if (constants.ISDEVELOPMENT !== process.env.NODE_ENV) {
+if (constants.ISDEV) {
   const webpack = require('webpack');
   const webpackConfig = require('../webpack/webpack.config.js');
   const webpackCompiled = webpack(webpackConfig);
@@ -25,7 +25,7 @@ if (constants.ISDEVELOPMENT !== process.env.NODE_ENV) {
     },
   }));
   // 配置热更新
-  var webpackHotMiddleware = require('webpack-hot-middleware');
+  const webpackHotMiddleware = require('webpack-hot-middleware');
   app.use(webpackHotMiddleware(webpackCompiled));
 }
 

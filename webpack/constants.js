@@ -9,10 +9,10 @@ const COM_DIR = path.join(ABSOLUTE_BASE, 'src/components'); // 公用组件
 const ASSETS_DIR = path.join(ABSOLUTE_BASE, 'src/assets');
 const PORT = process.env.PORT || 7044;
 // WDS
-//const PROJECT_ID = 31; // RAP上的 project id
+const PROJECT_ID = 31; // mock 上的 project id
 const HOST = utils.getIP();
-// 检测是否输入生产环境代码运行，process.env.NODE_ENV 返回 true 是生产环境，否则是 development
-const ISDEVELOPMENT = (process.env.NODE_ENV || "development") === "development";
+// 终端运行命令行，process.env.NODE_ENV 返回 true 是生产环境，否则是 development
+const ISDEV = (process.env.NODE_ENV !== 'production') ? true : false;
 
 module.exports = {
   ABSOLUTE_BASE: ABSOLUTE_BASE,
@@ -23,6 +23,6 @@ module.exports = {
   ASSETS_DIR: ASSETS_DIR,
   PORT: PORT,
   HOST: HOST,
-  //PROJECT_ID: PROJECT_ID,
-  ISDEVELOPMENT: ISDEVELOPMENT,
+  PROJECT_ID: PROJECT_ID,
+  ISDEV: ISDEV,
 };
