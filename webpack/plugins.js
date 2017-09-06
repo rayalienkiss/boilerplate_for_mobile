@@ -25,8 +25,8 @@ exports.commonPlugins = [
       [
         // weinre 真机调试脚本
         `http://${constants.HOST}:7000/target/target-script-min.js#anonymous`,
-      ] 
-      : 
+      ]
+      :
       []
   }),
 
@@ -52,7 +52,7 @@ exports.commonPlugins = [
       return module.context && module.context.indexOf('jquery') !== -1;
     }
   }),
-  
+
   new webpack.optimize.CommonsChunkPlugin({
     name: 'common'
   })

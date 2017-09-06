@@ -7,16 +7,21 @@ import {
 import {
   BasicExample
 } from './components';
-import $ from 'jquery';  
+import $ from 'jquery';
+import './normalize';
 
 const appElement = document.getElementById('app');
 
-ReactDOM.render(  
-  <AppContainer>
-    <BasicExample/>
-  </AppContainer>,
-  appElement,
-);
+const render = () => {
+  ReactDOM.render (  
+    <AppContainer>
+      <BasicExample/>
+    </AppContainer>,
+    appElement,
+  );
+};
+
+render();
 
 // if (module.hot) {
 //   module.hot.accept('./routes', () => {

@@ -7,8 +7,11 @@ import {
 import {
   Counter
 } from 'COM';
-import { axios } from 'UTILS';
-import style from './basicExample-custom.less';
+//import { axios } from 'UTILS';
+import style from './basicExample-custom';
+
+//import { Button } from 'antd-mobile';
+
 
 const Home = () => (
   <div>
@@ -58,29 +61,32 @@ const Topic = ({ match }) => (
 
 class BasicExample extends React.Component {
 
-  test() {
-    axios.get('/api/daliystatistics')
-    .then(function (response) {
-      console.log(response);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-  }
+  // test() {
+  //   axios.get('/api/daliystatistics')
+  //   .then(function (response) {
+  //     console.log(response);
+  //   })
+  //   .catch(function (error) {
+  //     console.log(error);
+  //   });
+  // }
 
   componentDidMount() {
-    this.test();
+    //this.test();
   }
 
   render () {
     return (
       <Router>
       <div>
+        {/* <Button className="btn" type="primary">primary button</Button> */}
         <ul id="nav">
           <li className={`${style.red} ${style.blue}`}><Link to="/">Home</Link></li>
           <li><Link to="/about">About</Link></li>
           <li><Link to="/topics">Topics</Link></li>
-          <li><Link to="/counter">Counter</Link></li>
+          <li>
+            <Link to="/counter">Counter</Link>
+          </li>
         </ul>
   
         <hr />

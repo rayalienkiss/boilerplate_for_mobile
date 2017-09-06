@@ -26,17 +26,17 @@ const webpackConfig = {
         // bundle the client for hot reloading
         // only- means to only hot reload for successful updates
         'webpack/hot/only-dev-server',
-        path.join(constants.SRC_DIR, 'entry.js')
+        path.join(constants.SRC_DIR, 'entry.js'),
       ] : [
         // 生产环境打包规则
-        path.join(constants.SRC_DIR, 'entry.js')
-      ]
+        path.join(constants.SRC_DIR, 'entry.js'),
+      ],
   },
 
   output: {
     filename: constants.ISDEV ? '[name]_[hash].js' : '[name]_[chunkhash].js',
     path: constants.DIST_DIR,
-    publicPath: '/'
+    publicPath: '/',
   },
 
   module: {
@@ -53,7 +53,7 @@ const webpackConfig = {
       loaders.eot,
       loaders.assets,
       loaders.svg,
-    ]
+    ],
   },
 
   plugins: constants.ISDEV ?

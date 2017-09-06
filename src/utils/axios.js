@@ -3,7 +3,7 @@ import {
 } from 'antd-mobile';
 import {
     browserHistory,
-    hashHistory 
+    hashHistory
 } from 'react-router';
 import axios from 'axios';
 import { session } from 'UTILS';

@@ -2,107 +2,57 @@ const path = require('path');
 const constants = require('./constants');
 // 分离样式文件插件
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
-// const isDevelopment = (process.env.NODE_ENV || "development") === "development";
 
 const jsx = {
-  test: /\.js|jsx$/,
-  exclude: /node_modules/,
-  use: {
+  test: /\.(js|jsx)$/,
+  exclude: /(node_modules|bower_components)/,
+  use: [{
     loader: 'babel-loader',
     options: {
       presets: [
         'env',
         'stage-0',
-        'react'
+        'react',
       ],
       plugins: [
-        [
-          'react-hot-loader/babel'
-        ],
-        [
-          'import',
-          {
-            "libraryName": "antd",
-            "style": "css"
-          }
-        ]
-      ]
-    }
-  }
+        'transform-runtime',
+        'react-hot-loader/babel',
+        ['import', {
+          libraryName: 'antd-mobile',
+          libraryDirectory: 'lib',
+          style: 'css',
+        }],
+      ],
+    },
+  }],
 };
-
-// const jsx = {
-//   test: /\.(js|jsx)$/,
-//   exclude: /(node_modules)/,
-//   use: [{
-//     loader: 'babel-loader',
-//     options: {
-//       plugins: [
-//         [
-//           'react-css-modules', {
-//             context: constants.SRC_DIR,
-//             filetypes: {
-//               '.less': 'postcss-less'
-//             },
-//             generateScopedName: '[path]_[name]_[local]_[hash:base64:5]',
-//           }
-//         ],
-//         // import js and css modularly (less source files)
-//         [
-//           'import', {
-//             libraryName: 'antd-mobile',
-//             style: 'css'
-//           }
-//         ]
-//       ],
-//     },
-//   }],
-// };
 
 const antdStyle = {
   test: /\.(css|less)$/,
   include: [
     /node_modules\/.*antd-mobile\/.*/,
     /node_modules\\.*antd-mobile\\.*/,
-    /node_modules\/.*antd\/.*/,
-    /node_modules\\.*antd\\.*/,
     /node_modules\/.*normalize\.css\/.*/,
     /node_modules\\.*normalize\.css\\.*/,
   ],
   use: constants.ISDEV ?
-    ExtractTextPlugin.extract({
-      fallback: "style-loader",
-      use: [
-        {
-          loader: 'css-loader',
-          options: {
-            modules: true,
-            importLoaders: 3,
-            localIdentName: '[local]'
-          }
-        },
-        {
-          loader: path.resolve(__dirname, 'less-css-modules-assets-fix-loader.js')
-        },
-        {
-          loader: 'postcss-loader',
-        },
-        {
-          loader: 'less-loader'
-        }
-      ]
-    })
+    [
+      'style-loader',
+      'css-loader',
+      'postcss-loader',
+      'less-loader',
+    ]
     :
     ExtractTextPlugin.extract({
-      fallback: "style-loader",
+      fallback: 'style-loader',
       use: [
         {
           loader: 'css-loader',
           options: {
             modules: true,
             importLoaders: 3,
-            localIdentName: '[local]'
-          }
+            localIdentName: '[local]',
+          },
         },
         {
           loader: path.resolve(__dirname, 'less-css-modules-assets-fix-loader.js')
@@ -127,7 +77,7 @@ const less = {
   exclude: [
     constants.NODE_MODULES_DIR,
   ],
-  use: constants.ISDEV ? 
+  use: constants.ISDEV ?
     [
       {
         loader: 'style-loader',
@@ -385,8 +335,6 @@ const assets = {
     path.join(constants.ASSETS_DIR, 'img'),
     /node_modules\/.*antd-mobile\/.*/,
     /node_modules\\.*antd-mobile\\.*/,
-    /node_modules\/.*antd\/.*/,
-    /node_modules\\.*antd\\.*/
   ],
   use: ['url-loader?limit=10000!img-loader?progressive=true'],
 };
