@@ -156,3 +156,8 @@ build/
 
 # IDE files
 node_modules
+
+# history
+.history
+.history/
+.history/*

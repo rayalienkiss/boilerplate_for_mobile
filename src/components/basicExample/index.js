@@ -75,28 +75,28 @@ class BasicExample extends React.Component {
     //this.test();
   }
 
-  render () {
+  render() {
     return (
       <Router>
-      <div>
-        {/* <Button className="btn" type="primary">primary button</Button> */}
-        <ul id="nav">
-          <li className={`${style.red} ${style.blue}`}><Link to="/">Home</Link></li>
-          <li><Link to="/about">About</Link></li>
-          <li><Link to="/topics">Topics</Link></li>
-          <li>
-            <Link to="/counter">Counter</Link>
-          </li>
-        </ul>
-  
-        <hr />
-  
-        <Route exact path="/" component={Home} />
-        <Route path="/about" component={About} />
-        <Route path="/topics" component={Topics} />
-        <Route path="/counter" component={Counter} />
-      </div>
-    </Router>
+        <div>
+          {/* <Button className="btn" type="primary">primary button</Button> */}
+          <ul id="nav">
+            <li className={`${style.red} ${style.blue}`}><Link to="/">Home</Link></li>
+            <li><Link to="/about">About</Link></li>
+            <li><Link to="/topics">Topics</Link></li>
+            <li>
+              <Link to="/counter">Counter</Link>
+            </li>
+          </ul>
+
+          <hr />
+
+          <Route exact path="/" component={Home} />
+          <Route path="/about" component={About} />
+          <Route path="/topics" component={Topics} />
+          <Route path="/counter" component={Counter} />
+        </div>
+      </Router>
     );
   }
 };
