@@ -18,8 +18,8 @@ const webpackConfig = {
         'react-hot-loader/patch',
 
         // 不用 webpack-dev-server 的时候
-        //`webpack-hot-middleware/client?path=http://${constants.HOST}:${constants.PORT}/__webpack_hmr&timeout=10000&reload=true`,
-        
+        // `webpack-hot-middleware/client?path=http://${constants.HOST}:${constants.PORT}/__webpack_hmr&timeout=10000&reload=true`,
+
         // bundle the client for webpack-dev-server
         // and connect to the provided endpoint
         `webpack-dev-server/client?http://${constants.HOST}:${constants.PORT}`,
@@ -63,7 +63,7 @@ const webpackConfig = {
 
   resolve: {
     modules: ['node_modules'],
-    extensions: ['.web.js', '.js', '.css', '.less', '.json'],
+    extensions: ['.jsx', '.web.js', '.js', '.css', '.less', '.json'],
     alias: {
       // 自定义路径别名，大写用于区别NPM模块
       ASSETS: path.join(constants.SRC_DIR, 'assets'),
@@ -71,7 +71,7 @@ const webpackConfig = {
       PAGES: path.join(constants.SRC_DIR, 'pages'),
       COM: path.join(constants.SRC_DIR, 'components'),
       UTILS: path.join(constants.SRC_DIR, 'utils'),
-    }
+    },
   },
 };
 

@@ -10,7 +10,7 @@ import {
 //import { axios } from 'UTILS';
 import style from './basicExample-custom';
 
-//import { Button } from 'antd-mobile';
+import { Button } from 'antd-mobile';
 
 
 const Home = () => (

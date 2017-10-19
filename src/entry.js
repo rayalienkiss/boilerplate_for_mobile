@@ -13,7 +13,7 @@ import './normalize';
 const appElement = document.getElementById('app');
 
 const render = () => {
-  ReactDOM.render (  
+  ReactDOM.render (
     <AppContainer>
       <BasicExample/>
     </AppContainer>,
@@ -31,7 +31,7 @@ render();
 // }
 
 // 前端脚本中配置热更新处理逻辑
-// if (module.hot) {  
+// if (module.hot) {
 //   module.hot.accept();
 // }
 
