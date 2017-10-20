@@ -1,16 +1,10 @@
 import React from 'react';
-import {
-  BrowserRouter as Router,
-  Route,
-  Link
-} from 'react-router-dom';
-import {
-  Counter
-} from 'COM';
-//import { axios } from 'UTILS';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { Counter } from 'COM';
+// import { axios } from 'UTILS';
 import style from './basicExample-custom';
 
-import { Button } from 'antd-mobile';
+// import { Button } from 'antd-mobile';
 
 
 const Home = () => (
@@ -23,7 +17,7 @@ const About = () => (
   <div>
     <h2>About</h2>
   </div>
-)
+);
 
 const Topics = ({ match }) => (
   <div>
