@@ -5,9 +5,12 @@ import {
   AppContainer
 } from 'react-hot-loader';
 import {
-  BasicExample
+  BasicExample,
+  DropdownMenu
 } from './components';
+// 引入JQ
 import $ from 'jquery';
+// 从公共组件初始化浏览器样式
 import './normalize';
 
 const appElement = document.getElementById('app');
@@ -15,7 +18,7 @@ const appElement = document.getElementById('app');
 const render = () => {
   ReactDOM.render (
     <AppContainer>
-      <BasicExample/>
+      <DropdownMenu/>
     </AppContainer>,
     appElement,
   );
