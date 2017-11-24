@@ -5,15 +5,27 @@ import { Counter } from 'COM';
 import style from './dropdownMenu';
 
 class DropdownMenu extends React.Component {
-
   componentDidMount() {
   }
 
   render() {
     return (
       <div className={style.center}>
-        <div className={style.dropdown_menu_wrap}>
-          123
+        <div className={style.dm}>
+          <div className={style.dm_switch}>
+            DROPDOWN MENU
+          </div>
+          <ul className={style.dm_menu}>
+            <li>
+              option one
+            </li>
+            <li>
+              option two
+            </li>
+            <li>
+              option three
+            </li>
+          </ul>
         </div>
       </div>
     );
