@@ -4,8 +4,87 @@
 @padding-option-dm: @padding-switch-dm;
 @fontSize-dm: 16px;
 @lineHeight-dm: 1.4;
+@borderRadius-dm: 5px;
+@arrowSize-dm: 8px;
+@size-icon-dm: 40px;
 // color
-@bgColor-dm: rgba(255,255,255,1);
+@fontColor-dm: @mainColor-dm;
+@bgColor-dm: rgba(255, 255, 255, 1);
+@borderColor-dm: rgba(223, 222, 222, 1);
+@mainColor-dm: rgba(102, 102, 102, 1);
+
+// 动画
+.animation-s( @name,@duration,@timing-function,@delay,@iteration-count,@direction,@play-state,@fill-mode ) {
+  animation-name: @name;
+  animation-duration: @duration;
+  animation-timing-function: @timing-function;
+  animation-delay: @delay;
+  animation-iteration-count: @iteration-count;
+  animation-direction: @direction;
+  animation-play-state: @play-state;
+  animation-fill-mode: @fill-mode;
+}
+
+// 过渡
+.transition ( @property, @duration, @timing-function, @delay ) {
+  transition-property: @property;
+  transition-duration: @duration;
+  transition-timing-function: @timing-function;
+  transition-delay: @delay;
+}
+
+.size ( @width,@height ) {
+  width: @width;
+  height: @height;
+}
+
+.square ( @size ) {
+  .size ( @size,@size );
+}
+
+// 链接
+.link( @color: @fontColor-dm ) {
+  text-decoration: none;
+  list-style: none;
+  cursor: pointer;
+  color: @color;
+
+  &:hover,
+  &:active {
+    color: darken( @color,15% );
+    text-decoration: none;
+  }
+
+  &:focus {
+    text-decoration: none;
+  }
+}
+
+// 样式上下箭头
+.arrow-up-or-down ( @border-top-or-bottom,@ysize,@xsize,@color:inherit ) {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  vertical-align: middle;
+  @{border-top-or-bottom}: @ysize dashed;
+  @{border-top-or-bottom}: @ysize solid ~'\9'; // IE8
+  @{border-top-or-bottom}-color: @color;
+  border-right: @xsize solid transparent;
+  border-left: @xsize solid transparent;
+}
+
+// 样式左右箭头
+.arrow-left-or-right ( @border-left-or-right,@xsize,@ysize,@color:inherit ) {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  vertical-align: middle;
+  @{border-left-or-right}: @xsize dashed;
+  @{border-left-or-right}: @xsize solid ~'\9'; // IE8
+  @{border-left-or-right}-color: @color;
+  border-top: @ysize solid transparent;
+  border-bottom: @ysize solid transparent;
+}
 
 .center {
   position: fixed;
@@ -23,18 +102,238 @@
 
 .dm_menu {
   position: absolute;
-  top: @height-switch-dm;
+  top: ~"calc(100% + @{arrowSize-dm}*1.5)";
   left: 0;
   width: 100%;
   list-style: none;
-  padding: 0;
+  padding: 10px 0;
   margin: 0;
+  border: 1px solid @borderColor-dm;
+  border-radius: @borderRadius-dm;
+
+  &:before {
+    content: '';
+    position: absolute;
+    bottom: 100%;
+    right: @arrowSize-dm * 2 - 2px;
+    .arrow-up-or-down(border-bottom, @arrowSize-dm + 2px, @arrowSize-dm + 2px);
+  }
+
+  &:after {
+    content: '';
+    position: absolute;
+    bottom: 100%;
+    right: @arrowSize-dm * 2;
+    .arrow-up-or-down(border-bottom, @arrowSize-dm, @arrowSize-dm, @bgColor-dm);
+  }
 }
 
 .dm_option {
+  display: block;
+  padding: @padding-switch-dm;
+  .link();
 
+  &:hover {
+    background-color: darken(@bgColor-dm, 5%);
+  }
 }
 
 .dm_switch {
   padding: @padding-switch-dm;
+  border: 1px solid @borderColor-dm;
+  border-radius: @borderRadius-dm;
+  cursor: pointer;
+}
+
+////////////
+
+.dd_body {
+  padding: @size-icon-dm/2;
+}
+
+.dd_wrap {
+  position: relative;
+  transform: translate3d( 0,0,0 );
+  .square( @size-icon-dm );
+  overflow: hidden;
+  border-radius: 5px;
+
+  .icon-wrap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    .square( @size-icon-dm );
+
+    .icon {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate( -50%,-50% );
+      width: 40%;
+      height: 2px;
+      background-color: #fff;
+      border-radius: 5px;
+
+      &::before,
+      &::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background-color: #fff;
+        border-radius: 5px;
+      }
+
+      &::before {
+        top: -200%;
+      }
+
+      &::after {
+        bottom: -200%;
+      }
+    }
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 50%;
+    .square( @size-icon-dm );
+    background-color: #666;
+    .transition( all,0.6s,ease,0.15s );
+  }
+
+  &.show {
+    .menuSize();
+
+    .icon-wrap {
+      .ttt();
+
+      .icon {
+        .bgc();
+
+        &::before {
+          .close1();
+        }
+
+        &::after {
+          .close2();
+        }
+      }
+    }
+
+    &::before {
+      top: -@size-icon-dm*2;
+      left: -@size-icon-dm*2;
+      .square( @size-icon-dm*10 );
+    }
+  }
+
+  // 扩充菜单边界
+  .menuSize() {
+    .animation-s( menuSize,0.1s,ease,0,1,normal,running,both );
+  }
+
+  .close1() {
+    .animation-s( forward,0.6s,ease,0.25s,1,normal,running,both );
+  }
+
+  .close2() {
+    .animation-s( backward,0.6s,ease,0.25s,1,normal,running,both );
+  }
+
+  .bgc() {
+    .animation-s( bgc,0.6s,ease,0.25s,1,normal,running,both );
+  }
+
+  .ttt() {
+    .animation-s( ttt,0.6s,ease,0.25s,1,normal,running,both );
+  }
+
+  @keyframes menuSize {
+    0% {
+      height: @size-icon-dm;
+      width: @size-icon-dm;
+    }
+    100% {
+      height: 200px;
+      width: 200px;
+    }
+  }
+
+  @keyframes bgc {
+    0% {
+      background-color: rgb(255, 255, 255);
+    }
+    100% {
+      background-color: transparent;
+    }
+  }
+
+  @keyframes ttt {
+    0% {
+      left: 0;
+    }
+    100% {
+      left: 200px - @size-icon-dm;
+    }
+  }
+
+  @keyframes forward {
+    0% {
+      top: -200%;
+      left: 0;
+      transform: translate( 0,0 ) rotate( 0 );
+    }
+    // 50% {
+    //   transform: translate( -25%,-25% ) rotate( 22.5deg );
+    // }
+    100% {
+      top: 50%;
+      left: 50%;
+      transform: translate( -50%,-50% ) rotate( 45deg );
+    }
+  }
+
+  @keyframes backward {
+    0% {
+      bottom: -200%;
+      left: 0;
+      transform: translate( 0,0 ) rotate( 0 );
+    }
+    // 50% {
+    //   transform: translate( -25%,-25% ) rotate( -22.5deg );
+    // }
+    100% {
+      top: 50%;
+      left: 50%;
+      transform: translate( -50%,-50% ) rotate( -45deg );
+    }
+  }
+
+  > ul {
+    position: absolute;
+    top: 40px;
+    left: 0;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+
+    > li {
+      display: block;
+      cursor: pointer;
+      font-size: 14px;
+      line-height: 1.4;
+      padding: 8px 40px 8px 15px;
+      color: rgb(255, 255, 255);
+
+      &:hover {
+        background-color: lighten( @mainColor-dm,5% );
+      }
+    }
+  }
 }

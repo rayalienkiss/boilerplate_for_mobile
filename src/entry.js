@@ -12,6 +12,7 @@ import {
 import $ from 'jquery';
 // 从公共组件初始化浏览器样式
 import './normalize';
+import './gobal';
 
 const appElement = document.getElementById('app');
 
